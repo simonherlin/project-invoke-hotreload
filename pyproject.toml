@@ -1,0 +1,23 @@
+[project]
+name = "invoke-hot-reload-demo"
+version = "0.1.0"
+description = "Orchestration Invoke pour deux API FastAPI et une librairie partagee"
+requires-python = ">=3.12"
+dependencies = ["invoke>=2.2,<3"]
+
+[dependency-groups]
+dev = ["ruff>=0.8,<1"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [".venv", "**/.venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["shared_models", "api_a", "api_b"]

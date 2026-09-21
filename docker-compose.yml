@@ -1,0 +1,35 @@
+services:
+  api-a:
+    build:
+      context: .
+      dockerfile: services/api-a/Dockerfile
+    working_dir: /workspace/services/api-a
+    command: >-
+      uv run uvicorn api_a.main:app --host 0.0.0.0 --port 8001 --reload
+      --reload-dir /workspace/services/api-a/src
+      --reload-dir /workspace/packages/shared-models/src
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/workspace
+      - api_a_venv:/workspace/services/api-a/.venv
+
+  api-b:
+    build:
+      context: .
+      dockerfile: services/api-b/Dockerfile
+    working_dir: /workspace/services/api-b
+    command: >-
+      uv run uvicorn api_b.main:app --host 0.0.0.0 --port 8002 --reload
+      --reload-dir /workspace/services/api-b/src
+      --reload-dir /workspace/packages/shared-models/src
+    ports:
+      - "8002:8002"
+    volumes:
+      - .:/workspace
+      - api_b_venv:/workspace/services/api-b/.venv
+
+volumes:
+  api_a_venv:
+  api_b_venv:
+
